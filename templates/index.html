@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação DASS-21 - Ferramenta de Pesquisa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .option-card:hover {
+            border-color: #3b82f6;
+            background-color: #f0f7ff;
+        }
+        .option-selected {
+            border-color: #2563eb !important;
+            background-color: #dbeafe !important;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+        body {
+            background-color: #f1f5f9;
+        }
+        .animate-fade {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media print {
+            .no-print { display: none; }
+            body { background-color: white; }
+            #app { box-shadow: none; border: none; }
+        }
+    </style>
+</head>
+<body class="min-h-screen py-6 px-4 md:py-12">
+
+    <div id="app" class="max-w-3xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+        <!-- Cabeçalho -->
+        <header class="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white text-center">
+            <h1 class="text-3xl font-bold mb-2">Escala DASS-21</h1>
+            <p class="text-blue-100 italic opacity-90">Depressão, Ansiedade e Estresse</p>
+        </header>
+
+        <!-- Seção de Introdução -->
+        <div id="intro-section" class="p-8 md:p-12">
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8 rounded-r-lg">
+                <h3 class="font-bold text-blue-800 mb-2">Instruções</h3>
+                <p class="text-blue-700 leading-relaxed text-sm md:text-base">
+                    Por favor, leia cada frase e selecione a opção que indica o quanto ela se aplicou a você **durante a última semana**. Não há respostas certas ou erradas. Responda de acordo com sua primeira impressão.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10 text-sm text-gray-600">
+                <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <span class="font-bold text-blue-600 bg-blue-100 w-8 h-8 flex items-center justify-center rounded-full">0</span>
+                    <span>Não se aplicou de maneira alguma</span>
+                </div>
+                <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <span class="font-bold text-blue-600 bg-blue-100 w-8 h-8 flex items-center justify-center rounded-full">1</span>
+                    <span>Aplicou-se em algum grau / pouco tempo</span>
+                </div>
+                <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <span class="font-bold text-blue-600 bg-blue-100 w-8 h-8 flex items-center justify-center rounded-full">2</span>
+                    <span>Aplicou-se em grau considerável</span>
+                </div>
+                <div class="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                    <span class="font-bold text-blue-600 bg-blue-100 w-8 h-8 flex items-center justify-center rounded-full">3</span>
+                    <span>Aplicou-se muito / maioria do tempo</span>
+                </div>
+            </div>
+
+            <button onclick="startSurvey()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg transform hover:-translate-y-1">
+                Iniciar Questionário
+            </button>
+        </div>
+
+        <!-- Seção do Formulário -->
+        <div id="form-section" class="hidden p-8 md:p-12">
+            <div class="mb-10">
+                <div class="flex justify-between items-end mb-2">
+                    <span id="progress-text" class="text-sm font-bold text-blue-600">Questão 1 de 21</span>
+                    <span id="progress-percent" class="text-xs text-gray-400">0%</span>
+                </div>
+                <div class="w-full bg-gray-100 rounded-full h-3">
+                    <div id="progress-bar" class="bg-blue-600 h-3 rounded-full transition-all duration-500 shadow-sm" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div id="question-container" class="animate-fade min-h-[300px]">
+                <!-- Pergunta atual injetada aqui -->
+            </div>
+
+            <div class="flex justify-between items-center mt-12 pt-6 border-t border-gray-100 no-print">
+                <button id="prev-btn" onclick="prevQuestion()" class="invisible text-gray-400 hover:text-blue-600 font-bold flex items-center transition-colors">
+                    <i class="fas fa-chevron-left mr-2"></i> Anterior
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" class="bg-blue-600 hover:bg-blue-700 text-white px-10 py-3 rounded-xl font-bold shadow-lg disabled:opacity-30 transition-all" disabled>
+                    Próxima <i class="fas fa-chevron-right ml-2"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Seção de Resultados -->
+        <div id="results-section" class="hidden p-8 md:p-12 animate-fade">
+            <div class="text-center mb-10">
+                <div class="inline-block p-4 bg-green-50 rounded-full mb-4">
+                    <i class="fas fa-clipboard-check text-4xl text-green-500"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-800">Avaliação Concluída</h2>
+                <p class="text-gray-500">Confira abaixo as suas pontuações calculadas.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <!-- Depressão -->
+                <div class="bg-white p-6 rounded-2xl border-2 border-gray-50 text-center shadow-sm">
+                    <h3 class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">Depressão</h3>
+                    <p id="score-depression" class="text-5xl font-black text-blue-600 mb-3">0</p>
+                    <div id="label-depression" class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase">Normal</div>
+                </div>
+                <!-- Ansiedade -->
+                <div class="bg-white p-6 rounded-2xl border-2 border-gray-50 text-center shadow-sm">
+                    <h3 class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">Ansiedade</h3>
+                    <p id="score-anxiety" class="text-5xl font-black text-emerald-500 mb-3">0</p>
+                    <div id="label-anxiety" class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase">Normal</div>
+                </div>
+                <!-- Estresse -->
+                <div class="bg-white p-6 rounded-2xl border-2 border-gray-50 text-center shadow-sm">
+                    <h3 class="text-gray-500 text-sm font-bold uppercase tracking-wider mb-2">Estresse</h3>
+                    <p id="score-stress" class="text-5xl font-black text-orange-500 mb-3">0</p>
+                    <div id="label-stress" class="inline-block px-4 py-1 rounded-full text-xs font-bold uppercase">Normal</div>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-100 p-6 rounded-2xl text-sm text-amber-800 mb-10 flex items-start">
+                <i class="fas fa-exclamation-triangle mt-1 mr-4 text-amber-500 text-lg"></i>
+                <div>
+                    <p class="font-bold mb-1">Nota Importante:</p>
+                    <p>Os resultados apresentados são baseados em uma escala de autorrelato e **não configuram um diagnóstico médico ou psicológico**. Para uma avaliação completa, consulte um profissional de saúde mental qualificado.</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 no-print">
+                <button onclick="window.print()" class="flex-1 bg-gray-800 hover:bg-black text-white font-bold py-4 rounded-xl transition-all flex items-center justify-center">
+                    <i class="fas fa-print mr-2"></i> Imprimir Resultados
+                </button>
+                <button onclick="location.reload()" class="flex-1 border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-bold py-4 rounded-xl transition-all">
+                    Refazer Teste
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-8 mb-12 text-center text-gray-400 text-sm">
+        <p>Desenvolvido para fins educacionais e de pesquisa • DASS-21</p>
+        <p class="mt-1 font-semibold">UNIVESP 2026_PJI110 - A2026S1N3 - Grupo 18</p>
+    </footer>
+
+    <script>
+        // Itens do Questionário
+        const questions = [
+            { id: 1, type: 'stress', text: "Achei difícil me acalmar." },
+            { id: 2, type: 'anxiety', text: "Senti minha boca seca." },
+            { id: 3, type: 'depression', text: "Não consegui sentir nenhum sentimento positivo." },
+            { id: 4, type: 'anxiety', text: "Tive dificuldade em respirar (ex. respiração excessivamente rápida, falta de ar sem esforço físico)." },
+            { id: 5, type: 'depression', text: "Achei difícil ter iniciativa para fazer as coisas." },
+            { id: 6, type: 'stress', text: "Tive a tendência a reagir de forma exagerada às situações." },
+            { id: 7, type: 'anxiety', text: "Senti tremores (ex. nas mãos)." },
+            { id: 8, type: 'stress', text: "Senti que estava sempre nervoso(a)." },
+            { id: 9, type: 'anxiety', text: "Preocupei-me com situações em que eu pudesse entrar em pânico e parecer ridículo(a)." },
+            { id: 10, type: 'depression', text: "Senti que não tinha nada a desejar para o futuro." },
+            { id: 11, type: 'stress', text: "Senti-me agitado(a)." },
+            { id: 12, type: 'stress', text: "Achei difícil relaxar." },
+            { id: 13, type: 'depression', text: "Senti-me triste e deprimido(a)." },
+            { id: 14, type: 'stress', text: "Fui intolerante com qualquer coisa que me impedisse de continuar o que eu estava fazendo." },
+            { id: 15, type: 'anxiety', text: "Senti que estava prestes a entrar em pânico." },
+            { id: 16, type: 'depression', text: "Fui incapaz de me entusiasmar com qualquer coisa." },
+            { id: 17, type: 'depression', text: "Senti que não tinha muito valor como pessoa." },
+            { id: 18, type: 'stress', text: "Senti que estava um pouco sensível demais." },
+            { id: 19, type: 'anxiety', text: "Senti os batimentos do meu coração alterados mesmo sem ter feito esforço físico." },
+            { id: 20, type: 'anxiety', text: "Senti medo sem motivo aparente." },
+            { id: 21, type: 'depression', text: "Senti que a vida não tinha sentido." }
+        ];
+
+        let currentStep = 0;
+        let answers = new Array(questions.length).fill(null);
+
+        function startSurvey() {
+            document.getElementById('intro-section').classList.add('hidden');
+            document.getElementById('form-section').classList.remove('hidden');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = questions[currentStep];
+            const container = document.getElementById('question-container');
+            
+            container.innerHTML = `
+                <div class="animate-fade">
+                    <span class="inline-block px-3 py-1 bg-blue-100 text-blue-600 rounded-lg text-xs font-bold mb-4 uppercase tracking-widest">Questão ${currentStep + 1}</span>
+                    <h2 class="text-xl md:text-2xl font-semibold text-gray-800 mb-8 leading-tight">${q.text}</h2>
+                    <div class="grid grid-cols-1 gap-4">
+                        ${[0, 1, 2, 3].map(value => {
+                            const labels = [
+                                "Não se aplicou de maneira alguma",
+                                "Aplicou-se em algum grau ou por pouco tempo",
+                                "Aplicou-se em um grau considerável",
+                                "Aplicou-se muito ou na maioria do tempo"
+                            ];
+                            const isSelected = answers[currentStep] === value;
+                            return `
+                                <div onclick="selectOption(${value})" class="option-card cursor-pointer p-5 border-2 rounded-2xl transition-all flex items-center ${isSelected ? 'option-selected' : 'border-gray-100'}">
+                                    <div class="w-10 h-10 rounded-xl border-2 flex items-center justify-center mr-5 transition-colors ${isSelected ? 'bg-blue-600 border-blue-600 text-white' : 'border-gray-200 text-gray-400'}">
+                                        <span class="font-bold">${value}</span>
+                                    </div>
+                                    <span class="text-gray-700 font-medium md:text-lg">${labels[value]}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+
+            updateUI();
+        }
+
+        function selectOption(val) {
+            answers[currentStep] = val;
+            renderQuestion();
+            
+            setTimeout(() => {
+                if (currentStep < questions.length - 1) {
+                    nextQuestion();
+                } else {
+                    document.getElementById('next-btn').disabled = false;
+                }
+            }, 350);
+        }
+
+        function nextQuestion() {
+            if (currentStep < questions.length - 1) {
+                currentStep++;
+                renderQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderQuestion();
+            }
+        }
+
+        function updateUI() {
+            const progress = ((currentStep + 1) / questions.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('progress-text').innerText = `Questão ${currentStep + 1} de 21`;
+            document.getElementById('progress-percent').innerText = `${Math.round(progress)}%`;
+
+            document.getElementById('prev-btn').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+            document.getElementById('next-btn').disabled = answers[currentStep] === null;
+            document.getElementById('next-btn').innerHTML = currentStep === questions.length - 1 ? 'Finalizar <i class="fas fa-check ml-2"></i>' : 'Próxima <i class="fas fa-chevron-right ml-2"></i>';
+        }
+
+        function showResults() {
+            let dScore = 0, aScore = 0, sScore = 0;
+
+            questions.forEach((q, i) => {
+                if (q.type === 'depression') dScore += answers[i];
+                if (q.type === 'anxiety') aScore += answers[i];
+                if (q.type === 'stress') sScore += answers[i];
+            });
+
+            updateScoreDisplay('depression', dScore * 2);
+            updateScoreDisplay('anxiety', aScore * 2);
+            updateScoreDisplay('stress', sScore * 2);
+
+            document.getElementById('form-section').classList.add('hidden');
+            document.getElementById('results-section').classList.remove('hidden');
+        }
+
+        function updateScoreDisplay(type, finalScore) {
+            const el = document.getElementById(`score-${type}`);
+            const label = document.getElementById(`label-${type}`);
+            el.innerText = finalScore;
+
+            const cuts = {
+                depression: [10, 14, 21, 28],
+                anxiety: [8, 10, 15, 20],
+                stress: [15, 19, 26, 34]
+            };
+
+            const t = cuts[type];
+            let status = "Normal", color = "bg-green-100 text-green-700";
+
+            if (finalScore >= t[3]) { status = "Extremamente Severo"; color = "bg-red-100 text-red-700"; }
+            else if (finalScore >= t[2]) { status = "Severo"; color = "bg-orange-100 text-orange-700"; }
+            else if (finalScore >= t[1]) { status = "Moderado"; color = "bg-yellow-100 text-yellow-700"; }
+            else if (finalScore >= t[0]) { status = "Leve"; color = "bg-blue-100 text-blue-700"; }
+
+            label.innerText = status;
+            label.className = `inline-block px-4 py-1 rounded-full text-xs font-bold uppercase ${color}`;
+        }
+    </script>
+</body>
+</html>
