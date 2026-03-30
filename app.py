@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -8,4 +8,10 @@ def homepage():
 
 @app.route("/formulario")
 def formulario():
-    return render_template("index.html")
+    name    = request.args.get("name")
+    age     = request.args.get("age")
+    course  = request.args.get("course")
+    return render_template("index.html", nome=name, idade=age, curso=course)
+
+if __name__ == "__main__":
+    app.run(debug=True)

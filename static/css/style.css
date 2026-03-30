@@ -1,0 +1,84 @@
+ body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .animate-fade {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+                .option-card:hover {
+            border-color: #3b82f6;
+            background-color: #f0f7ff;
+        }
+        .option-selected {
+            border-color: #2563eb !important;
+            background-color: #dbeafe !important;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+        body {
+            background-color: #f1f5f9;
+        }
+        .animate-fade {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media print {
+            .no-print { display: none; }
+            body { background-color: white; }
+            #app { box-shadow: none; border: none; }
+        }        .option-card:hover {
+            border-color: #3b82f6;
+            background-color: #f0f7ff;
+        }
+        .option-selected {
+            border-color: #2563eb !important;
+            background-color: #dbeafe !important;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+        body {
+            background-color: #f1f5f9;
+        }
+        .animate-fade {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media print {
+            .no-print { display: none; }
+            body { background-color: white; }
+            #app { box-shadow: none; border: none; }
+        }
+
+        .option-card:hover {
+            border-color: #3b82f6;
+            background-color: #f0f7ff;
+        }
+        .option-selected {
+            border-color: #2563eb !important;
+            background-color: #dbeafe !important;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+        }
+        body {
+            background-color: #f1f5f9;
+        }
+        .animate-fade {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media print {
+            .no-print { display: none; }
+            body { background-color: white; }
+            #app { box-shadow: none; border: none; }
+        }
