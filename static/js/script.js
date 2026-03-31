@@ -120,6 +120,28 @@
 
             document.getElementById('form-section').classList.add('hidden');
             document.getElementById('results-section').classList.remove('hidden');
+            console.log("to aqui", dScore*2, aScore*2, sScore*2)
+            /*To do - mandar os valores pro banco daqui */
+            //dScore - aScore - sScore
+
+            // valores que serão enviados ao banco        
+            let data_resposta = new Date().toISOString().split("T")[0];
+            let name = document.getElementById("name").textContent
+            let age = parseInt(document.getElementById("age").textContent, 10)
+            let course = document.getElementById("course").textContent
+
+            dScore = dScore * 2
+            aScore = aScore * 2
+            sScore = sScore * 2
+
+            console.log("Entrando no fetch")                        
+            fetch("/registrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body:`name=${encodeURIComponent(name)}&age=${encodeURIComponent(age)}&course=${encodeURIComponent(course)}&data_resposta=${encodeURIComponent(data_resposta)}&dScore=${encodeURIComponent(dScore)}&aScore=${encodeURIComponent(aScore)}&sScore=${encodeURIComponent(sScore)}`
+            })
         }
 
         function updateScoreDisplay(type, finalScore) {
@@ -142,12 +164,10 @@
             else if (finalScore >= t[0]) { status = "Leve"; color = "bg-blue-100 text-blue-700"; }
 
             label.innerText = status;
-            label.className = `inline-block px-4 py-1 rounded-full text-xs font-bold uppercase ${color}`;
-            console.log("final ->", finalScore);
-            /*To do - mandar os valores pro banco daqui */
+            label.className = `inline-block px-4 py-1 rounded-full text-xs font-bold uppercase ${color}`;                        
         }
 
         /* Seção de debug com console.log() */
         console.log("Seção Debug")
-        console.log(document.getElementById("valorBD").textContent)
+        console.log(parseInt(document.getElementById("age").textContent, 10))
       
