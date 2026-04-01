@@ -167,7 +167,7 @@
             label.className = `inline-block px-4 py-1 rounded-full text-xs font-bold uppercase ${color}`;                        
         }
 
-        /* Seção de debug com console.log() */
-        console.log("Seção Debug")
-        console.log(parseInt(document.getElementById("age").textContent, 10))
+        function voltarHomepage(){
+            window.location.href = "/";
+        }
       

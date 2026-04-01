@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from db import db
 from models import Resultado
 from datetime import datetime
@@ -43,12 +43,9 @@ def registrar():
 
     db.session.add(novo_resultado)
     db.session.commit()
-
-    return render_template("homepage.html")
+    return redirect(url_for("homepage"))
 
     
-
-
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
