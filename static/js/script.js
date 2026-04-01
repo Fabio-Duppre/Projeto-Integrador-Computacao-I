@@ -171,3 +171,6 @@
             window.location.href = "/";
         }
       
+        console.log(document.getElementById('name').textContent)
+        console.log(document.getElementById('age').textContent)
+        console.log(document.getElementById('course').textContent)

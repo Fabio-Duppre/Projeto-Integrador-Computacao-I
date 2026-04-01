@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from db import db
-from models import Resultado
+from models import Resultado, Usuario
 from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///resultados.db"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
 @app.route("/")
