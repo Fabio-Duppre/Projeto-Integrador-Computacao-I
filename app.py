@@ -46,6 +46,48 @@ def registrar():
     db.session.commit()
     return redirect(url_for("homepage"))
 
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+
+@app.route("/cadastrar")
+def cadastrar():
+    return render_template("cadastrar.html")
+
+
+@app.route("/dashboard")
+def dashboard():
+    return render_template("dashboard.html")
+
+
+@app.route("/cadastrar_usuario", methods=['POST'])
+def cadastrar_usuario():
+    name        = request.form['name']
+    email       = request.form['email']
+    password    = request.form['password']
+
+    novo_usuario = Usuario(
+        name        = name,
+        email       = email,
+        password    = password
+    )
+
+    db.session.add(novo_usuario)
+    db.session.commit()
+
+    return redirect(url_for('login'))
+
+
+@app.route("/valida_usuario", methods=['POST'])
+def valida_usuario():
+    if (request.form['email'] == "admin@teste.com") and (request.form['password'] == "admin") :
+        return redirect(url_for("dashboard"))
+    
+    else:
+        return redirect(url_for("cadastrar"))
+
     
 if __name__ == "__main__":
     with app.app_context():
