@@ -50,10 +50,11 @@ def dashboard():
 
     
     curso_repetido = db.session.query(Resultado.course).group_by(Resultado.course).order_by(desc(func.count(Resultado.course))).first()
-    curso_repetido = curso_repetido[0]
 
-    if (curso_repetido == "None") or (curso_repetido == "desconhecido"):
+    if (curso_repetido == "None") or (curso_repetido == "desconhecido") or (curso_repetido is None):
         curso_repetido = "Não informado"
+    else:
+        curso_repetido = curso_repetido[0]
 
     return render_template("dashboard.html", total_respostas = total_respostas, media_stress = media_stress, curso_repetido = curso_repetido)
 
