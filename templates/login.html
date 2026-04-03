@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+   <meta charset="utf-8">
+   <meta content="width=device-width, initial-scale=1.0" name="viewport">
+   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+   <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+   >
+   <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+   >
+
+</head>
+
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col">
+   <!-- Main Content Canvas -->
+   <main class="flex-grow flex flex-col items-center justify-center px-6 py-12 relative overflow-hidden">
+      <!-- Background Decorative Elements -->
+      <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-primary-fixed rounded-full blur-[120px] opacity-30 pointer-events-none"></div>
+      <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-secondary-fixed rounded-full blur-[120px] opacity-30 pointer-events-none"></div>
+
+      <!-- Content Shell -->
+      <div class="w-full max-w-3xl z-10 flex flex-col items-center">
+         <!-- Login Card -->
+         <div class="w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
+            <!-- Header -->
+            <header class="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white text-center">
+               <h3 class="font-headline text-3xl font-bold mb-2" style="">
+                  Entrar no DASS-21
+               </h3>
+
+               <p class="text-blue-100 italic opacity-90" style="">
+                  Insira suas credenciais para continuar
+               </p>
+            </header>
+
+            <div class="p-8 md:p-12">
+               <form class="space-y-6" action="{{ url_for('valida_usuario') }}" method="POST">
+                  <div>
+                     <label class="block text-sm font-bold text-gray-700 mb-2" for="email" style="">
+                        Email
+                     </label>
+
+                     <div class="relative">
+                        <input
+                           class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all placeholder:text-outline"
+                           id="email"
+                           placeholder="nome@exemplo.com"
+                           type="email"
+                           name="email"
+                        >
+                     </div>
+                  </div>
+
+                  <div>
+                     <div class="flex justify-between items-center mb-2 px-1">
+                        <label class="block text-sm font-bold text-gray-700" for="password" style="">
+                           Senha
+                        </label>
+
+                        <a class="text-xs font-bold text-primary hover:underline" href="#" style="">
+                           Esqueceu a senha?
+                        </a>
+                     </div>
+
+                     <div class="relative">
+                        <input
+                           class="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-xl focus:ring-2 focus:ring-primary-container focus:border-transparent transition-all placeholder:text-outline"
+                           id="password"
+                           placeholder="••••••••"
+                           type="password"
+                           name="password"
+                        >
+                     </div>
+                  </div>
+
+                  <div class="pt-4">
+                     <button
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg transform hover:-translate-y-1 flex items-center justify-center gap-2"
+                        type="submit"
+                        style=""
+                     >
+                        Acessar conta
+                        <span class="material-symbols-outlined text-xl" data-icon="arrow_forward" style="">
+                           arrow_forward
+                        </span>
+                     </button>
+                  </div>
+               </form>
+
+               <div class="mt-10 pt-8 border-t border-gray-100 text-center">
+                  <p class="text-gray-600" style="">
+                     Não tem uma conta?
+                     <a class="text-blue-600 font-bold hover:underline ml-1" href="{{ url_for('cadastrar') }}" style="">
+                        Registre-se
+                     </a>
+                  </p>
+               </div>
+            </div>
+         </div>
+
+         <!-- Contextual Quote -->
+         <div class="mt-12 text-center">
+            <p class="text-on-surface-variant italic text-sm" style="">
+               "O primeiro passo para o bem-estar é a consciência."
+            </p>
+         </div>
+      </div>
+   </main>
+
+   <!-- Bottom Action Bar -->
+   <nav class="fixed bottom-0 left-0 w-full z-50 bg-white/70 backdrop-blur-xl flex justify-center items-center px-4 pb-8 pt-4 border-t border-[#c3c6d7]/15 rounded-t-[3rem] shadow-[0_-10px_40px_-15px_rgba(0,74,198,0.1)]">
+      <a
+         class="flex items-center justify-center gap-2 text-gray-500 hover:text-blue-600 font-bold px-8 py-3 rounded-2xl transition-all hover:bg-blue-50"
+         href="{{ url_for('homepage') }}"
+         style=""
+      >
+         <span class="material-symbols-outlined" data-icon="chevron_left" style="">
+            chevron_left
+         </span>
+         <span class="font-label text-sm uppercase tracking-wider" style="">
+            Voltar
+         </span>
+      </a>
+   </nav>
+
+   <!-- Spacer for Bottom Nav -->
+   <div class="h-28"></div>
+</body>
+</html>
