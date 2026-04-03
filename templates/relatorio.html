@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+<head>
+   <meta charset="utf-8" />
+   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+   <title>DASS-21 Admin - Relatórios</title>
+   <!-- Fonts: Manrope & Inter -->
+   <link href="https://fonts.googleapis.com" rel="preconnect" />
+   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+   <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap"
+      rel="stylesheet"
+   />
+
+   <!-- Material Symbols -->
+   <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+   />
+
+   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+   <script id="tailwind-config">
+      tailwind.config = {
+         darkMode: "class",
+         theme: {
+            extend: {
+               "colors": {
+                  "tertiary-fixed": "#ffdbcd",
+                  "error-container": "#ffdad6",
+                  "primary-container": "#2563eb",
+                  "on-surface": "#171c1f",
+                  "on-secondary-fixed": "#0f0069",
+                  "inverse-primary": "#b4c5ff",
+                  "surface-bright": "#f6fafe",
+                  "primary-fixed-dim": "#b4c5ff",
+                  "outline": "#737686",
+                  "error": "#ba1a1a",
+                  "inverse-on-surface": "#edf1f5",
+                  "on-tertiary-fixed-variant": "#7d2d00",
+                  "surface": "#f6fafe",
+                  "on-primary-fixed-variant": "#003ea8",
+                  "on-tertiary-fixed": "#360f00",
+                  "on-primary-fixed": "#00174b",
+                  "on-primary": "#ffffff",
+                  "on-error-container": "#93000a",
+                  "primary": "#004ac6",
+                  "on-surface-variant": "#434655",
+                  "secondary-fixed-dim": "#c3c0ff",
+                  "secondary-fixed": "#e2dfff",
+                  "surface-dim": "#d6dade",
+                  "on-background": "#171c1f",
+                  "tertiary": "#943700",
+                  "primary-fixed": "#dbe1ff",
+                  "surface-container-lowest": "#ffffff",
+                  "outline-variant": "#c3c6d7",
+                  "secondary-container": "#645efb",
+                  "secondary": "#4b41e1",
+                  "on-tertiary-container": "#ffede6",
+                  "surface-container": "#eaeef2",
+                  "on-tertiary": "#ffffff",
+                  "on-secondary": "#ffffff",
+                  "surface-container-highest": "#dfe3e7",
+                  "on-secondary-fixed-variant": "#3323cc",
+                  "surface-container-high": "#e4e9ed",
+                  "surface-variant": "#dfe3e7",
+                  "on-secondary-container": "#fffbff",
+                  "surface-container-low": "#f0f4f8",
+                  "background": "#f6fafe",
+                  "surface-tint": "#0053db",
+                  "tertiary-fixed-dim": "#ffb596",
+                  "on-primary-container": "#eeefff",
+                  "on-error": "#ffffff",
+                  "inverse-surface": "#2c3134",
+                  "tertiary-container": "#bc4800"
+               },
+               "borderRadius": {
+                  "DEFAULT": "1rem",
+                  "lg": "2rem",
+                  "xl": "3rem",
+                  "full": "9999px"
+               },
+               "fontFamily": {
+                  "headline": ["Manrope"],
+                  "body": ["Inter"],
+                  "label": ["Inter"]
+               }
+            }
+         }
+      }
+   </script>
+
+   <style>
+      .material-symbols-outlined {
+         font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+
+      .editorial-gradient {
+         background: linear-gradient(135deg, #2563eb 0%, #4b41e1 100%);
+      }
+
+      .glass-header {
+         background: rgba(255, 255, 255, 0.7);
+         backdrop-filter: blur(24px);
+      }
+   </style>
+<body class="bg-surface text-on-surface flex min-h-[1024px]" data-mode="connect" data-stitch-vh="min-h-[1024px]===min-h-screen">
+<!-- SideNavBar --> <!-- SideNavBar Component -->
+   <!-- SideNavBar -->
+<aside class="flex flex-col h-full py-6 bg-slate-50 dark:bg-slate-900 h-[1024px] w-64 border-r-0 fixed left-0 top-0 z-40" data-stitch-vh="h-[1024px]===h-screen">
+<div class="px-6 mb-10">
+<h1 class="text-xl font-bold text-slate-900 dark:text-white font-manrope font-semibold">DASS-21 Admin</h1>
+<p class="text-xs text-on-surface-variant font-medium">Portal Clínico</p>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+               <a
+                  class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 scale-95 active:scale-90 transition-transform"
+                  href="{{ url_for('dashboard') }}"
+               >
+                  <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                  <span class="font-headline text-sm">Visão Geral</span>
+               </a>
+
+               <a
+                  class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 scale-95 active:scale-90 transition-transform"
+                  href="{{ url_for('lista_aluno') }}"
+               >
+                  <span class="material-symbols-outlined" data-icon="group">group</span>
+                  <span class="font-headline text-sm">Lista de Alunos</span>
+               </a>
+
+               <a
+                  class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-700 dark:text-blue-300 font-bold border-r-4 border-blue-600 bg-blue-50 dark:bg-blue-900/20 transition-colors duration-200"                                    
+                  href="{{ url_for('relatorio') }}"
+               >
+                  <span class="material-symbols-outlined" data-icon="description">description</span>
+                  <span class="font-headline text-sm">Relatórios</span>
+               </a>
+            </nav>
+            <!-- Bottom Nav (Logout) -->
+            <div class="px-3 mt-auto pb-4">
+               <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
+                  <a
+                     class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors duration-200 scale-95 active:scale-90 transition-transform"
+                     href="{{ url_for('logout') }}"
+                  >
+                     <span class="material-symbols-outlined" data-icon="logout">logout</span>
+                     <span class="font-headline text-sm">Logout</span>
+                  </a>
+               </div>
+            </div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 flex flex-col min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+<!-- TopAppBar -->
+<header class="flex justify-end items-center w-full h-16 px-8 sticky top-0 z-50 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl shadow-sm dark:shadow-none font-manrope tracking-tight">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-4">
+<div class="text-right">
+               <p class="text-xs font-bold font-headline text-on-surface">Admin Clínica</p>
+               <p class="text-[10px]">Gestor de Saúde Mental</p>
+</div>
+<div class="h-10 w-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-12 max-w-6xl mx-auto w-full">
+<!-- Hero Header Section -->
+<section class="mb-12">
+<h2 class="text-4xl font-extrabold text-on-surface mb-2 tracking-tight">Centro de Relatórios</h2>
+<p class="text-on-surface-variant text-lg">Exporte e analise os dados coletados do questionário DASS-21.</p>
+</section>
+<!-- Main Control Section: Bento Style -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<!-- Date Range Selector Card -->
+<div class="md:col-span-7 bg-surface-container-low rounded-xl p-8 shadow-2xl shadow-primary/5">
+<div class="flex items-center gap-4 mb-8">
+<div class="p-3 bg-primary-container/10 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
+</div>
+<div>
+<h3 class="text-xl font-bold">Período de Tempo</h3>
+<p class="text-sm text-on-surface-variant">Selecione o intervalo das respostas recebidas</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Data Inicial</label>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-3 border-outline-variant/15 border">
+<span class="material-symbols-outlined text-outline" data-icon="event">event</span>
+<input class="bg-transparent border-none p-0 focus:ring-0 w-full text-on-surface font-medium" type="text" value="01/01/2024"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Data Final</label>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-3 border-outline-variant/15 border">
+<span class="material-symbols-outlined text-outline" data-icon="event">event</span>
+<input class="bg-transparent border-none p-0 focus:ring-0 w-full text-on-surface font-medium" type="text" value="31/03/2024"/>
+</div>
+</div>
+</div>
+<div class="mt-8 flex flex-wrap gap-3">
+<button class="px-4 py-2 rounded-full bg-surface-container-highest text-on-surface-variant text-sm font-semibold hover:bg-primary-fixed transition-colors">Últimos 7 dias</button>
+<button class="px-4 py-2 rounded-full bg-surface-container-highest text-on-surface-variant text-sm font-semibold hover:bg-primary-fixed transition-colors">Último mês</button>
+<button class="px-4 py-2 rounded-full bg-primary text-on-primary text-sm font-semibold">Trimestre atual</button>
+</div>
+</div>
+<!-- Export Action Card -->
+<div class="md:col-span-5 bg-surface-container-lowest rounded-xl p-8 border border-outline-variant/15 shadow-sm">
+<div class="relative h-48 w-full rounded-lg overflow-hidden mb-8">
+<img alt="Data visualization dashboard" class="w-full h-full object-cover" data-alt="abstract composition of digital data charts and analytical graphs in soft blue and violet tones with clean modern aesthetics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApBdj41XpzU063t7Yh11vhvYDotkuJUhkTRMgiddYOhXNxwjFAFNDfMVDp9IjMtdCuSA3rtDbgSuubUFePxAIR2fH9W0ZuRdfQd-LFYeyUksdaPmgatYpWvASqFA1v4lT_KSH52iENUD0VUXH29i0H6FNNTghcHKrj9ctOJb1OIh5arUuK2tyNPfjqCoGIb-d6HFxtbGFeMByBKd0WlWwiMV_n0aUKd0tMmGdJAMTk_g1aLN8Y55dF6mHDTWMWzzVku9PW8qogSTU"/>
+<div class="absolute inset-0 indigo-gradient opacity-20"></div>
+</div>
+<h3 class="text-xl font-bold mb-4">Exportar Dados</h3>
+<p class="text-on-surface-variant mb-8 text-sm leading-relaxed">
+                        Gere um arquivo CSV ou PDF contendo todos os escores individuais de depressão, ansiedade e estresse dos alunos no período selecionado.
+                    </p>
+<button class="w-full indigo-gradient text-on-primary py-4 px-8 rounded-full font-bold flex items-center justify-center gap-3 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all group">
+<span class="material-symbols-outlined group-hover:translate-y-1 transition-transform" data-icon="download">download</span>
+<span>Download Relatório</span>
+</button>
+<div class="mt-4 flex items-center justify-center gap-6">
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+                            CSV
+                        </div>
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+                            PDF
+                        </div>
+<div class="flex items-center gap-1 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
+                            XLSX
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
