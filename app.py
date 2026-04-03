@@ -126,7 +126,10 @@ def cadastrar_usuario():
 
 @app.route("/valida_usuario", methods=['POST'])
 def valida_usuario():
-    validar = Usuario.query.filter_by(email=request.form['email']).first()    
+    validar = Usuario.query.filter_by(email=request.form['email']).first()  
+
+    if validar is None:
+        return redirect(url_for("cadastrar"))    
 
     if (request.form['email'] == validar.email) and (request.form['password'] == validar.password):
         session["usuario_id"] = validar.id
