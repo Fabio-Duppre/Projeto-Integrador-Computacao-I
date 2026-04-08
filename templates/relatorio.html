@@ -1,26 +1,18 @@
 <!DOCTYPE html>
+
 <html class="light" lang="pt-BR">
 <head>
-   <meta charset="utf-8" />
-   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-   <title>DASS-21 Admin - Relatórios</title>
-   <!-- Fonts: Manrope & Inter -->
-   <link href="https://fonts.googleapis.com" rel="preconnect" />
-   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-   <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap"
-      rel="stylesheet"
-   />
-
-   <!-- Material Symbols -->
-   <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-   />
-
-   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-   <script id="tailwind-config">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DASS-21 Admin - Relatórios</title>
+<!-- Fonts: Manrope & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
       tailwind.config = {
          darkMode: "class",
          theme: {
@@ -89,8 +81,7 @@
          }
       }
    </script>
-
-   <style>
+<style>
       .material-symbols-outlined {
          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
       }
@@ -104,82 +95,77 @@
          backdrop-filter: blur(24px);
       }
    </style>
-<body class="bg-surface text-on-surface flex min-h-[1024px]" data-mode="connect" data-stitch-vh="min-h-[1024px]===min-h-screen">
-<!-- SideNavBar --> <!-- SideNavBar Component -->
-   <!-- SideNavBar -->
-<aside class="flex flex-col h-full py-6 bg-slate-50 dark:bg-slate-900 h-[1024px] w-64 border-r-0 fixed left-0 top-0 z-40" data-stitch-vh="h-[1024px]===h-screen">
+<body class="bg-surface text-on-surface flex min-h-screen relative">
+<!-- Mobile Menu Button -->
+<!-- SideNavBar -->
+<aside class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-50 dark:bg-slate-900 border-r border-outline-variant/30 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out" id="sidebar">
+<div class="flex flex-col h-full py-6">
+<!-- Brand Identity -->
 <div class="px-6 mb-10">
-<h1 class="text-xl font-bold text-slate-900 dark:text-white font-manrope font-semibold">DASS-21 Admin</h1>
-<p class="text-xs text-on-surface-variant font-medium">Portal Clínico</p>
+<h1 class="text-xl font-bold text-slate-900 dark:text-white font-headline">DASS-21 Admin</h1>
+<p class="text-xs text-on-surface-variant font-medium opacity-70">Portal Clínico</p>
 </div>
+<!-- Navigation Links -->
 <nav class="flex-1 space-y-1 px-3">
-               <a
-                  class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 scale-95 active:scale-90 transition-transform"
-                  href="{{ url_for('dashboard') }}"
-               >
-                  <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-                  <span class="font-headline text-sm">Visão Geral</span>
-               </a>
-
-               <a
-                  class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 scale-95 active:scale-90 transition-transform"
-                  href="{{ url_for('lista_aluno') }}"
-               >
-                  <span class="material-symbols-outlined" data-icon="group">group</span>
-                  <span class="font-headline text-sm">Lista de Alunos</span>
-               </a>
-
-               <a
-                  class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-700 dark:text-blue-300 font-bold border-r-4 border-blue-600 bg-blue-50 dark:bg-blue-900/20 transition-colors duration-200"                                    
-                  href="{{ url_for('relatorio') }}"
-               >
-                  <span class="material-symbols-outlined" data-icon="description">description</span>
-                  <span class="font-headline text-sm">Relatórios</span>
-               </a>
-            </nav>
-            <!-- Bottom Nav (Logout) -->
-            <div class="px-3 mt-auto pb-4">
-               <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
-                  <a
-                     class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors duration-200 scale-95 active:scale-90 transition-transform"
-                     href="{{ url_for('logout') }}"
-                  >
-                     <span class="material-symbols-outlined" data-icon="logout">logout</span>
-                     <span class="font-headline text-sm">Logout</span>
-                  </a>
-               </div>
-            </div>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors" href="{{ url_for('dashboard') }}">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-headline text-sm">Visão Geral</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors" href="{{ url_for('lista_aluno') }}">
+<span class="material-symbols-outlined">group</span>
+<span class="font-headline text-sm">Lista de Alunos</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-blue-700 dark:text-blue-300 font-bold border-r-4 border-blue-600 bg-blue-50 dark:bg-blue-900/20 transition-colors" href="{{ url_for('relatorio') }}">
+<span class="material-symbols-outlined">description</span>
+<span class="font-headline text-sm">Relatórios</span>
+</a>
+</nav>
+<!-- Bottom Nav (Logout) -->
+<div class="px-3 mt-auto pb-4">
+<div class="pt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-red-600 transition-colors" href="{{ url_for('logout') }}">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-headline text-sm">Logout</span>
+</a>
+</div>
+</div>
+</div>
 </aside>
+<!-- Overlay for mobile sidebar -->
+<div class="fixed inset-0 z-30 bg-black/50 hidden lg:hidden" id="sidebar-overlay"></div>
 <!-- Main Content Canvas -->
-<main class="flex-1 ml-64 flex flex-col min-h-[1024px]" data-stitch-vh="min-h-[1024px]===min-h-screen">
+<main class="flex-1 flex flex-col min-h-screen lg:ml-64">
 <!-- TopAppBar -->
-<header class="flex justify-end items-center w-full h-16 px-8 sticky top-0 z-50 bg-white/70 dark:bg-slate-950/70 backdrop-blur-xl shadow-sm dark:shadow-none font-manrope tracking-tight">
-<div class="flex items-center gap-4">
+<header class="flex justify-between lg:justify-end items-center w-full h-16 px-4 lg:px-8 sticky top-0 z-20 glass-header shadow-sm border-b border-outline-variant/10"><button class="lg:hidden p-2 text-primary hover:bg-surface-container-high rounded-full transition-colors active:scale-95" id="mobile-menu-btn">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="lg:hidden">
+<h1 class="text-lg font-bold text-primary font-headline">DASS-21</h1>
+</div>
 <div class="flex items-center gap-4">
 <div class="text-right">
-               <p class="text-xs font-bold font-headline text-on-surface">Admin Clínica</p>
-               <p class="text-[10px]">Gestor de Saúde Mental</p>
+<p class="text-xs font-bold font-headline text-on-surface">Admin Clínica</p>
+<p class="text-[10px]">Gestor de Saúde Mental</p>
 </div>
-<div class="h-10 w-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-</div>
+<div class="h-10 w-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">account_circle</span>
 </div>
 </div>
 </header>
 <!-- Page Content -->
-<div class="p-12 max-w-6xl mx-auto w-full">
+<div class="p-6 lg:p-12 max-w-6xl mx-auto w-full">
 <!-- Hero Header Section -->
-<section class="mb-12">
-<h2 class="text-4xl font-extrabold text-on-surface mb-2 tracking-tight">Centro de Relatórios</h2>
-<p class="text-on-surface-variant text-lg">Exporte e analise os dados coletados do questionário DASS-21.</p>
+<section class="mb-8 lg:mb-12">
+<h2 class="text-3xl lg:text-4xl font-extrabold text-on-surface mb-2 tracking-tight">Centro de Relatórios</h2>
+<p class="text-on-surface-variant text-base lg:text-lg">Exporte e analise os dados coletados do questionário DASS-21.</p>
 </section>
 <!-- Main Control Section: Bento Style -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
 <!-- Date Range Selector Card -->
-<div class="md:col-span-7 bg-surface-container-low rounded-xl p-8 shadow-2xl shadow-primary/5">
+<div class="lg:col-span-7 bg-surface-container-low rounded-xl p-6 lg:p-8 shadow-2xl shadow-primary/5">
 <div class="flex items-center gap-4 mb-8">
 <div class="p-3 bg-primary-container/10 rounded-lg">
-<span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
+<span class="material-symbols-outlined text-primary">calendar_month</span>
 </div>
 <div>
 <h3 class="text-xl font-bold">Período de Tempo</h3>
@@ -189,15 +175,15 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 <div class="flex flex-col gap-2">
 <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Data Inicial</label>
-<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-3 border-outline-variant/15 border">
-<span class="material-symbols-outlined text-outline" data-icon="event">event</span>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-3 border border-outline-variant/15">
+<span class="material-symbols-outlined text-outline">event</span>
 <input class="bg-transparent border-none p-0 focus:ring-0 w-full text-on-surface font-medium" type="text" value="01/01/2024"/>
 </div>
 </div>
 <div class="flex flex-col gap-2">
 <label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant ml-1">Data Final</label>
-<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-3 border-outline-variant/15 border">
-<span class="material-symbols-outlined text-outline" data-icon="event">event</span>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-3 border border-outline-variant/15">
+<span class="material-symbols-outlined text-outline">event</span>
 <input class="bg-transparent border-none p-0 focus:ring-0 w-full text-on-surface font-medium" type="text" value="31/03/2024"/>
 </div>
 </div>
@@ -209,35 +195,49 @@
 </div>
 </div>
 <!-- Export Action Card -->
-<div class="md:col-span-5 bg-surface-container-lowest rounded-xl p-8 border border-outline-variant/15 shadow-sm">
+<div class="lg:col-span-5 bg-surface-container-lowest rounded-xl p-6 lg:p-8 border border-outline-variant/15 shadow-sm">
 <div class="relative h-48 w-full rounded-lg overflow-hidden mb-8">
-<img alt="Data visualization dashboard" class="w-full h-full object-cover" data-alt="abstract composition of digital data charts and analytical graphs in soft blue and violet tones with clean modern aesthetics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApBdj41XpzU063t7Yh11vhvYDotkuJUhkTRMgiddYOhXNxwjFAFNDfMVDp9IjMtdCuSA3rtDbgSuubUFePxAIR2fH9W0ZuRdfQd-LFYeyUksdaPmgatYpWvASqFA1v4lT_KSH52iENUD0VUXH29i0H6FNNTghcHKrj9ctOJb1OIh5arUuK2tyNPfjqCoGIb-d6HFxtbGFeMByBKd0WlWwiMV_n0aUKd0tMmGdJAMTk_g1aLN8Y55dF6mHDTWMWzzVku9PW8qogSTU"/>
-<div class="absolute inset-0 indigo-gradient opacity-20"></div>
+<img alt="Data visualization dashboard" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApBdj41XpzU063t7Yh11vhvYDotkuJUhkTRMgiddYOhXNxwjFAFNDfMVDp9IjMtdCuSA3rtDbgSuubUFePxAIR2fH9W0ZuRdfQd-LFYeyUksdaPmgatYpWvASqFA1v4lT_KSH52iENUD0VUXH29i0H6FNNTghcHKrj9ctOJb1OIh5arUuK2tyNPfjqCoGIb-d6HFxtbGFeMByBKd0WlWwiMV_n0aUKd0tMmGdJAMTk_g1aLN8Y55dF6mHDTWMWzzVku9PW8qogSTU"/>
+<div class="absolute inset-0 bg-blue-600/10"></div>
 </div>
 <h3 class="text-xl font-bold mb-4">Exportar Dados</h3>
 <p class="text-on-surface-variant mb-8 text-sm leading-relaxed">
-                        Gere um arquivo CSV ou PDF contendo todos os escores individuais de depressão, ansiedade e estresse dos alunos no período selecionado.
-                    </p>
-<button class="w-full indigo-gradient text-on-primary py-4 px-8 rounded-full font-bold flex items-center justify-center gap-3 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all group">
-<span class="material-symbols-outlined group-hover:translate-y-1 transition-transform" data-icon="download">download</span>
+                  Gere um arquivo CSV ou PDF contendo todos os escores individuais de depressão, ansiedade e estresse dos alunos no período selecionado.
+               </p>
+<button class="w-full editorial-gradient text-on-primary py-4 px-8 rounded-full font-bold flex items-center justify-center gap-3 hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] transition-all group">
+<span class="material-symbols-outlined">download</span>
 <span>Download Relatório</span>
 </button>
-<div class="mt-4 flex items-center justify-center gap-6">
+<div class="mt-6 flex items-center justify-center gap-6">
 <div class="flex items-center gap-1 text-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
-                            CSV
-                        </div>
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                     CSV
+                  </div>
 <div class="flex items-center gap-1 text-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
-                            PDF
-                        </div>
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                     PDF
+                  </div>
 <div class="flex items-center gap-1 text-xs text-on-surface-variant">
-<span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span>
-                            XLSX
-                        </div>
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                     XLSX
+                  </div>
 </div>
 </div>
 </div>
 </div>
 </main>
-</body></html>
+<script>
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+
+      function toggleMenu() {
+         sidebar.classList.toggle('-translate-x-full');
+         overlay.classList.toggle('hidden');
+      }
+
+      mobileMenuBtn.addEventListener('click', toggleMenu);
+      overlay.addEventListener('click', toggleMenu);
+   </script>
+</body>
+</head></html>

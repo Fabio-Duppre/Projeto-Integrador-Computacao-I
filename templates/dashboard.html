@@ -107,12 +107,20 @@
    </style>
 </head>
 
-<body class="bg-surface font-body text-on-surface antialiased flex min-h-screen">
+<body class="bg-surface font-body text-on-surface antialiased flex flex-col md:flex-row min-h-screen">
+   <!-- Mobile Menu Toggle (Only visible on small screens) -->
+   <div class="md:hidden glass-header flex items-center justify-between px-6 h-16 sticky top-0 z-[60] border-b border-outline-variant/30">
+      <h1 class="text-lg font-bold text-slate-900 font-headline">DASS-21 Admin</h1>
+      <button id="menuToggle" class="p-2 text-on-surface">
+         <span class="material-symbols-outlined">menu</span>
+      </button>
+   </div>
+
    <!-- SideNavBar Component -->
-   <aside class="flex flex-col h-screen w-64 border-r border-outline-variant/30 bg-slate-50 dark:bg-slate-900 sticky top-0 shrink-0">
+   <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-50 dark:bg-slate-900 border-r border-outline-variant/30 transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:flex md:flex-col md:h-screen md:sticky md:top-0 shrink-0">
       <div class="flex flex-col h-full py-6">
          <!-- Brand Identity -->
-         <div class="px-6 mb-10">
+         <div class="px-6 mb-10 hidden md:block">
             <h1 class="text-xl font-bold text-slate-900 dark:text-white font-headline">
                DASS-21 Admin
             </h1>
@@ -153,7 +161,7 @@
             <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
                <a
                   class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-red-50 dark:hover:bg-red-900/10 transition-colors duration-200 scale-95 active:scale-90 transition-transform"
-                  href="{{ url_for('logout') }}"
+                  href="#"
                >
                   <span class="material-symbols-outlined" data-icon="logout">logout</span>
                   <span class="font-headline text-sm">Logout</span>
@@ -163,9 +171,12 @@
       </div>
    </aside>
 
+   <!-- Overlay for mobile sidebar -->
+   <div id="sidebarOverlay" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"></div>
+
    <main class="flex-1 min-w-0 flex flex-col">
       <!-- TopAppBar Component -->
-      <header class="flex justify-end items-center w-full h-16 px-8 sticky top-0 z-50 glass-header shadow-sm dark:shadow-none">
+      <header class="hidden md:flex justify-end items-center w-full h-16 px-8 sticky top-0 z-50 glass-header shadow-sm dark:shadow-none">
          <div class="flex items-center gap-4">
             <div class="text-right">
                <p class="text-xs font-bold font-headline text-on-surface">Admin Clínica</p>
@@ -178,39 +189,39 @@
          </div>
       </header>
 
-      <div class="p-8 space-y-12">
+      <div class="p-4 md:p-8 space-y-8 md:space-y-12">
          <!-- Hero Metrics Section -->
-         <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+         <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Card 1: Total Respondentes -->
-            <div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0_25px_50px_-12px_rgba(0,74,198,0.08)] flex flex-col justify-between">
+            <div class="bg-surface-container-lowest p-6 md:p-8 rounded-xl shadow-[0_25px_50px_-12px_rgba(0,74,198,0.08)] flex flex-col justify-between">
                <div>
-                  <span class="label-md text-on-surface-variant font-label uppercase tracking-widest">
+                  <span class="text-[10px] md:text-xs text-on-surface-variant font-label uppercase tracking-widest">
                      Total de Respondentes
                   </span>
-                  <h2 class="text-[2.75rem] font-extrabold font-headline text-primary mt-2">
-                     {{total_respostas}}
+                  <h2 class="text-4xl md:text-[2.75rem] font-extrabold font-headline text-primary mt-2">
+                     {{ total_respostas }}
                   </h2>
                </div>
             </div>
 
             <!-- Card 2: Média de Estresse -->
-            <div class="editorial-gradient p-8 rounded-xl shadow-[0_25px_50px_-12px_rgba(0,74,198,0.08)] text-on-primary">
-               <span class="label-md opacity-80 font-label uppercase tracking-widest">
+            <div class="editorial-gradient p-6 md:p-8 rounded-xl shadow-[0_25px_50px_-12px_rgba(0,74,198,0.08)] text-on-primary">
+               <span class="text-[10px] md:text-xs opacity-80 font-label uppercase tracking-widest">
                   Média de Estresse
                </span>
-               <h2 class="text-[2.75rem] font-extrabold font-headline mt-2 leading-tight">
-                  {{media_stress}}
+               <h2 class="text-4xl md:text-[2.75rem] font-extrabold font-headline mt-2 leading-tight">
+                  {{ media_stress }}
                </h2>
             </div>
 
             <!-- Card 3: Curso Mais Recorrente -->
-            <div class="bg-surface-container-low p-8 rounded-xl flex flex-col justify-between">
+            <div class="bg-surface-container-low p-6 md:p-8 rounded-xl flex flex-col justify-between sm:col-span-2 lg:col-span-1">
                <div>
-                  <span class="label-md text-on-surface-variant font-label uppercase tracking-widest">
+                  <span class="text-[10px] md:text-xs text-on-surface-variant font-label uppercase tracking-widest">
                      Curso Recorrente
                   </span>
-                  <h2 class="text-[2.25rem] font-bold font-headline text-on-surface mt-2">
-                     {{curso_repetido}}
+                  <h2 class="text-3xl md:text-[2.25rem] font-bold font-headline text-on-surface mt-2">
+                     {{ curso_repetido }}
                   </h2>
                </div>
 
@@ -226,52 +237,70 @@
          </section>
 
          <!-- Chart Section: Respostas por Data -->
-         <section class="bg-surface-container-low p-8 rounded-xl">
-            <div class="flex justify-between items-end mb-8">
+         <section class="bg-surface-container-low p-6 md:p-8 rounded-xl overflow-hidden">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
                <div>
-                  <h3 class="text-xl font-bold font-headline text-on-surface">
+                  <h3 class="text-lg md:text-xl font-bold font-headline text-on-surface">
                      Respostas por Data
                   </h3>
-                  <p class="text-sm text-on-surface-variant mt-1">
+                  <p class="text-xs md:text-sm text-on-surface-variant mt-1">
                      Volume de engajamento nos últimos 30 dias
                   </p>
                </div>
 
                <div class="flex gap-2">
-                  <button class="px-4 py-2 bg-surface-container-lowest rounded-full text-xs font-bold text-primary shadow-sm">
+                  <button class="px-4 py-2 bg-surface-container-lowest rounded-full text-[10px] md:text-xs font-bold text-primary shadow-sm">
                      Mensal
                   </button>
-                  <button class="px-4 py-2 text-xs font-bold text-on-surface-variant">
+                  <button class="px-4 py-2 text-[10px] md:text-xs font-bold text-on-surface-variant">
                      Semanal
                   </button>
                </div>
             </div>
 
-            <div class="h-64 flex items-end justify-between gap-4">
+            <div class="h-48 md:h-64 flex items-end justify-between gap-1 sm:gap-4 overflow-x-auto pb-2">
                <!-- Simple Bar Representation -->
-               <div class="w-full bg-primary/10 rounded-t-lg h-24 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
-               <div class="w-full bg-primary/10 rounded-t-lg h-32 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
-               <div class="w-full bg-primary/10 rounded-t-lg h-48 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
-               <div class="w-full bg-primary/10 rounded-t-lg h-36 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[20%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[35%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[65%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[45%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
 
-               <div class="w-full bg-primary/20 rounded-t-lg h-56 relative group cursor-pointer hover:bg-primary/30 transition-all">
-                  <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+               <div class="min-w-[12px] flex-1 bg-primary/20 rounded-t-lg h-[85%] relative group cursor-pointer hover:bg-primary/30 transition-all">
+                  <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-on-surface text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
                      142 Resp.
                   </div>
                </div>
 
-               <div class="w-full bg-primary/10 rounded-t-lg h-40 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
-               <div class="w-full bg-primary/10 rounded-t-lg h-60 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
-               <div class="w-full bg-primary/10 rounded-t-lg h-32 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
-               <div class="w-full bg-primary/10 rounded-t-lg h-52 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
-               <div class="w-full bg-primary/10 rounded-t-lg h-28 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
-               <div class="w-full bg-primary/10 rounded-t-lg h-44 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
-               <div class="w-full bg-primary/10 rounded-t-lg h-56 relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[50%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[90%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[30%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[75%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[25%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[55%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
+               <div class="min-w-[12px] flex-1 bg-primary/10 rounded-t-lg h-[80%] relative group cursor-pointer hover:bg-primary/20 transition-all"></div>
             </div>
          </section>
-
-         <!-- Gestão de Respondentes section removed as requested -->
       </div>
    </main>
+
+   <script>
+      const menuToggle = document.getElementById('menuToggle');
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+
+      function toggleMenu() {
+         const isOpen = !sidebar.classList.contains('-translate-x-full');
+         if (isOpen) {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+         } else {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+         }
+      }
+
+      menuToggle.addEventListener('click', toggleMenu);
+      overlay.addEventListener('click', toggleMenu);
+   </script>
 </body>
 </html>
