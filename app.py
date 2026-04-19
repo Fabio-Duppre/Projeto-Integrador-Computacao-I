@@ -10,6 +10,37 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///resultados.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
+# Inserção de dados manuais para teste da aplicação
+
+def inserir_dados_iniciais():
+    # verifica se já existe algum registro
+    if Resultado.query.first():
+        return
+
+def inserir_dados_iniciais():
+    if Resultado.query.count() == 0:
+
+        dados = [
+            Resultado(name='João Silva',      course='Sistemas de Informação', age=22, data_resposta=datetime.strptime('2026-04-01', '%Y-%m-%d').date(), dScore=12, aScore=8,  sScore=6),
+            Resultado(name='Maria Souza',     course='Engenharia de Software', age=24, data_resposta=datetime.strptime('2026-04-01', '%Y-%m-%d').date(), dScore=15, aScore=10, sScore=7),
+            Resultado(name='Carlos Pereira',  course='Ciência da Computação', age=21, data_resposta=datetime.strptime('2026-04-02', '%Y-%m-%d').date(), dScore=9,  aScore=14, sScore=11),
+            Resultado(name='Ana Lima',        course='Análise e Desenvolvimento de Sistemas', age=23, data_resposta=datetime.strptime('2026-04-02', '%Y-%m-%d').date(), dScore=18, aScore=7,  sScore=5),
+            Resultado(name='Lucas Mendes',    course='Banco de Dados', age=26, data_resposta=datetime.strptime('2026-04-03', '%Y-%m-%d').date(), dScore=10, aScore=12, sScore=9),
+            Resultado(name='Fernanda Rocha',  course='Sistemas de Informação', age=20, data_resposta=datetime.strptime('2026-04-03', '%Y-%m-%d').date(), dScore=14, aScore=9,  sScore=13),
+            Resultado(name='Rafael Almeida',  course='Engenharia da Computação', age=27, data_resposta=datetime.strptime('2026-04-04', '%Y-%m-%d').date(), dScore=11, aScore=15, sScore=10),
+            Resultado(name='Juliana Martins', course='Ciência de Dados', age=25, data_resposta=datetime.strptime('2026-04-04', '%Y-%m-%d').date(), dScore=16, aScore=11, sScore=8),
+            Resultado(name='Pedro Henrique',  course='Análise e Desenvolvimento de Sistemas', age=22, data_resposta=datetime.strptime('2026-04-05', '%Y-%m-%d').date(), dScore=8,  aScore=13, sScore=14),
+            Resultado(name='Camila Ferreira', course='Sistemas para Internet', age=24, data_resposta=datetime.strptime('2026-04-05', '%Y-%m-%d').date(), dScore=17, aScore=10, sScore=6),
+            Resultado(name='Bruno Costa',     course='Banco de Dados', age=28, data_resposta=datetime.strptime('2026-04-06', '%Y-%m-%d').date(), dScore=13, aScore=12, sScore=7),
+            Resultado(name='Patrícia Gomes',  course='Ciência da Computação', age=23, data_resposta=datetime.strptime('2026-04-06', '%Y-%m-%d').date(), dScore=19, aScore=8,  sScore=9),
+            Resultado(name='Gustavo Ribeiro', course='Engenharia de Software', age=21, data_resposta=datetime.strptime('2026-04-07', '%Y-%m-%d').date(), dScore=7,  aScore=16, sScore=12),
+            Resultado(name='Larissa Batista', course='Ciência de Dados', age=26, data_resposta=datetime.strptime('2026-04-07', '%Y-%m-%d').date(), dScore=15, aScore=9,  sScore=11),
+            Resultado(name='Thiago Carvalho', course='Sistemas de Informação', age=22, data_resposta=datetime.strptime('2026-04-08', '%Y-%m-%d').date(), dScore=12, aScore=14, sScore=10),
+        ]
+
+        db.session.bulk_save_objects(dados)
+        db.session.commit()
+
 @app.route("/")
 def homepage():
     return render_template("homepage.html")
@@ -37,6 +68,8 @@ def dashboard():
     if "usuario_id" not in session:
         return redirect(url_for("login"))
     
+
+    lista_grafico = 
 
     total_respostas = Resultado.query.count()
 
@@ -152,6 +185,7 @@ with app.app_context():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
+        inserir_dados_iniciais()
 
 
     app.run(debug=True)
